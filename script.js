@@ -17,3 +17,9 @@ function getMediaStream() {
         
     });
 }
+
+
+function createPeerConnection() {
+    const connection = new RTCPeerConnection();
+    
+}
