@@ -1,0 +1,6 @@
+video {
+  --video-size: 200px;
+  background: black;
+  width: calc(var(--video-size) * (16/9));
+  height: var(--video-size);
+}
