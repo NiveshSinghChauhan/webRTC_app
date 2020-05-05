@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confrencing App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+        integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</head>
+
+<body>
+    <video></video>
+    
+    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+    <button onclick="getMediaStream()">Get Media</button>
+    <button onclick="connectWithSocket()">Connect</button>
+    <button onclick="Disconnect()">Disconnect</button>
+
+    <ul id="message-list">
+    </ul>
+    <button onclick="sendMessage()">Send</button>
+
+    <script src="script.js"></script>
+    <script src="rtc.js"></script>
+</body>
+
+</html>
