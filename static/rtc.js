@@ -1,5 +1,5 @@
-
-const socket = io('http://localhost:3000');
+// local url
+const socket = io('https://basic-webrtc-app.herokuapp.com');
 let peerConnection;
 let dataChannel;
 
