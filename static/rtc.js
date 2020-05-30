@@ -61,6 +61,7 @@ async function onOffer(offer) {
 
     peerConnection.onicecandidate = (e) => {
         if (e.candidate) {
+            console.log(e);
             // socket.emit('message', { type: 'ice', ice: e.candidate })
         } else {
             console.log('all ice sent');
@@ -147,6 +148,10 @@ function addListners(connection) {
 
     connection.addEventListener("connectionstatechange", (e) => {
         console.log('connection -> ', connection.connectionState);
+        if (connection.connectionState == 'failed') {
+            console.log(e)
+            console.log(e)
+        }
     })
 }
 
