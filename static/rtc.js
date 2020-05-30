@@ -50,24 +50,25 @@ async function onOffer(offer) {
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
     });
 
-    peerConnection.addEventListener("datachannel", (e) => {
-        dataChannel = e.channel
-        dataChannel.binaryType = 'arraybuffer';
+    // peerConnection.addEventListener("datachannel", (e) => {
+    //     dataChannel = e.channel
+    //     dataChannel.binaryType = 'arraybuffer';
 
-        console.log('recieved dc: ');
-        addDataChannelListners(dataChannel);
+    //     console.log('recieved dc: ');
+    //     addDataChannelListners(dataChannel);
 
-    })
+    // })
 
-    peerConnection.onicecandidate = (e) => {
-        if (e.candidate) {
-            console.log(e);
-            // socket.emit('message', { type: 'ice', ice: e.candidate })
-        } else {
-            console.log('all ice sent');
+    // peerConnection.onicecandidate = (e) => {
+    //     if (e.candidate) {
+    //         console.log(e);
+    //         // socket.emit('message', { type: 'ice', ice: e.candidate })
+    //     } else {
+    //         console.log('all ice sent');
 
-        }
-    };
+    //     }
+    // };
+    console.log('reciever');
 
     addListners(peerConnection);
 
@@ -114,16 +115,17 @@ async function connectWithSocket() {
 
     createDatachannel();
 
-    peerConnection.onicecandidate = (e) => {
-        if (e.candidate) {
-            socket.emit('message', { type: 'ice', ice: e.candidate })
-        } else {
-            console.log('all ice sent');
-        }
-    };
+    // peerConnection.onicecandidate = (e) => {
+    //     if (e.candidate) {
+    //         socket.emit('message', { type: 'ice', ice: e.candidate })
+    //     } else {
+    //         console.log('all ice sent');
+    //     }
+    // };
 
+    console.log('reciever');
 
-    addListners(peerConnection);
+    addListners(peerConnection, true);
 
 
     const offer = await peerConnection.createOffer();
@@ -136,7 +138,29 @@ async function connectWithSocket() {
 
 
 
-function addListners(connection) {
+function addListners(connection, caller) {
+
+    connection.addEventListener("datachannel", (e) => {
+        dataChannel = e.channel
+        dataChannel.binaryType = 'arraybuffer';
+
+        console.log('recieved dc: ');
+        addDataChannelListners(dataChannel);
+
+    })
+
+    connection.onicecandidate = (e) => {
+        if (e.candidate) {
+            console.log(e);
+            if (caller) {
+                socket.emit('message', { type: 'ice', ice: e.candidate })
+            }
+        } else {
+            console.log('all ice sent');
+
+        }
+    };
+
 
     connection.addEventListener("signalingstatechange", (e) => {
         console.log('signaling -> ', connection.signalingState);
