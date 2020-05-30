@@ -47,7 +47,7 @@ async function onOffer(offer) {
     console.log('offer recieved');
 
     peerConnection = new RTCPeerConnection({
-        iceServers: [{ urls: "stun:stun2.l.google.com:19305" }]
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
     });
 
     peerConnection.addEventListener("datachannel", (e) => {
