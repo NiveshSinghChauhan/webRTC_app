@@ -123,7 +123,7 @@ async function connectWithSocket() {
     //     }
     // };
 
-    console.log('reciever');
+    console.log('caller');
 
     addListners(peerConnection, true);
 
@@ -152,9 +152,9 @@ function addListners(connection, caller) {
     connection.onicecandidate = (e) => {
         if (e.candidate) {
             console.log(e);
-            if (caller) {
-                socket.emit('message', { type: 'ice', ice: e.candidate })
-            }
+            socket.emit('message', { type: 'ice', ice: e.candidate })
+            // if (caller) {
+            // }
         } else {
             console.log('all ice sent');
 
@@ -173,7 +173,6 @@ function addListners(connection, caller) {
     connection.addEventListener("connectionstatechange", (e) => {
         console.log('connection -> ', connection.connectionState);
         if (connection.connectionState == 'failed') {
-            console.log(e)
             console.log(e)
         }
     })
